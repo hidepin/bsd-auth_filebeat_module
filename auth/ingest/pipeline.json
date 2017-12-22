@@ -1,0 +1,11 @@
+{
+  "description": "Pipeline for parsing bsd-auth auth logs",
+  "processors": [
+    ],
+  "on_failure" : [{
+    "set" : {
+      "field" : "error",
+      "value" : "{{ _ingest.on_failure_message }}"
+    }
+  }]
+}

@@ -1,0 +1,9 @@
+- name: auth
+  type: group
+  description: >
+    auth
+  fields:
+    - name: example
+      type: keyword
+      description: >
+        Example field

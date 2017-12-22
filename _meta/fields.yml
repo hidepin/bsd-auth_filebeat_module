@@ -1,0 +1,9 @@
+- key: bsd-auth
+  title: "bsd-auth"
+  description: >
+    bsd-auth Module
+  fields:
+    - name: bsd-auth
+      type: group
+      description: >
+      fields:
