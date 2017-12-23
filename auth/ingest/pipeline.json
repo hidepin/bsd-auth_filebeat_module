@@ -1,7 +1,40 @@
 {
   "description": "Pipeline for parsing bsd-auth auth logs",
-  "processors": [
-    ],
+  "processors": [{
+    "grok": {
+      "field": "message",
+      "pattern_definitions":{
+        "RESULT" : "Accepted password|Accepted keyboard-interactive\/pam|Failed password|Failed keyboard-interactive\/pam|Received disconnect|error: Received disconnect|Connection closed|Connection reset|Invalid user|fatal: Unable to negotiate|Bad protocol version identification|Did not receive identification string|Disconnected|error: maximum authentication attempts exceeded|error: PAM: authentication error|Bad protocol version identification ''|Postponed keyboard-interactive"
+      },
+      "patterns": [
+        "%{SYSLOGTIMESTAMP:bsd-auth.auth.timestamp} %{SYSLOGHOST:bsd-auth.auth.hostname}(?: <%{WORD:bsd-auth.auth.facility}.%{WORD:bsd-auth.auth.priority}>)? %{SYSLOGPROG}:(?: )?(?<bsd-auth.auth.result>reverse mapping checking getaddrinfo for) %{HOSTNAME} \\[%{IPORHOST:bsd-auth.auth.remote_ip}\\].*",
+        "%{SYSLOGTIMESTAMP:bsd-auth.auth.timestamp} %{SYSLOGHOST:bsd-auth.auth.hostname}(?: <%{WORD:bsd-auth.auth.facility}.%{WORD:bsd-auth.auth.priority}>)? %{SYSLOGPROG}:(?: )?(?<bsd-auth.auth.result>Address) %{IPORHOST:bsd-auth.auth.remote_ip}.*",
+        "%{SYSLOGTIMESTAMP:bsd-auth.auth.timestamp} %{SYSLOGHOST:bsd-auth.auth.hostname}(?: <%{WORD:bsd-auth.auth.facility}.%{WORD:bsd-auth.auth.priority}>)? %{SYSLOGPROG}:(?: )?(?:%{RESULT:bsd-auth.auth.result}(?: for)?(?: invalid user)?(?: illegal user)?(?: *%{USERNAME:bsd-auth.auth.user_name})?(?: '[^']+')? (?:from|by|with) %{IPORHOST:bsd-auth.auth.remote_ip})?(?: port %{POSINT:bsd-auth.auth.port})?.*"
+      ]
+    }
+  }, {
+    "rename": {
+      "field": "@timestamp",
+      "target_field": "read_timestamp"
+    }
+  }, {
+    "date": {
+      "field": "bsd-auth.auth.timestamp",
+      "target_field": "@timestamp",
+      "formats" : ["MMM  d HH:mm:ss", "MMM dd HH:mm:ss"],
+      "timezone" : "Asia/Tokyo"
+    }
+  }, {
+    "remove": {
+      "field": "bsd-auth.auth.timestamp"
+    }
+  }, {
+    "geoip": {
+      "field": "bsd-auth.auth.remote_ip",
+      "target_field": "bsd-auth.auth.geoip",
+      "ignore_missing": true
+    }
+  }],
   "on_failure" : [{
     "set" : {
       "field" : "error",
