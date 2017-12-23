@@ -1,0 +1,181 @@
+{
+  "mappings": {
+    "_default_": {
+      "_meta": {
+        "version": "5.6.5"
+      },
+      "date_detection": false,
+      "dynamic_templates": [
+        {
+          "strings_as_keyword": {
+            "mapping": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "match_mapping_type": "string"
+          }
+        }
+      ],
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "beat": {
+          "properties": {
+            "hostname": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "version": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            }
+          }
+        },
+        "bsd-auth": {
+          "properties": {
+            "auth": {
+              "properties": {
+                "facility": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "geoip": {
+                  "properties": {
+                    "city_name": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "continent_name": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "country_iso_code": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "location": {
+                      "type": "geo_point"
+                    },
+                    "region_name": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "hostname": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "port": {
+                  "type": "long"
+                },
+                "priority": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "remote_ip": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "result": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "user_name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "error": {
+          "ignore_above": 1024,
+          "type": "keyword"
+        },
+        "fileset": {
+          "properties": {
+            "module": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            }
+          }
+        },
+        "input_type": {
+          "ignore_above": 1024,
+          "type": "keyword"
+        },
+        "message": {
+          "norms": false,
+          "type": "text"
+        },
+        "meta": {
+          "properties": {
+            "cloud": {
+              "properties": {
+                "availability_zone": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "instance_id": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "machine_type": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "project_id": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "provider": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "region": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "offset": {
+          "type": "long"
+        },
+        "read_timestamp": {
+          "ignore_above": 1024,
+          "type": "keyword"
+        },
+        "source": {
+          "ignore_above": 1024,
+          "type": "keyword"
+        },
+        "tags": {
+          "ignore_above": 1024,
+          "type": "keyword"
+        },
+        "type": {
+          "ignore_above": 1024,
+          "type": "keyword"
+        }
+      }
+    }
+  },
+  "order": 0,
+  "settings": {
+    "index.mapping.total_fields.limit": 10000,
+    "index.refresh_interval": "5s"
+  },
+  "template": "bsd-auth-*"
+}

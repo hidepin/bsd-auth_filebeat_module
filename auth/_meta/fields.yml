@@ -3,7 +3,58 @@
   description: >
     auth
   fields:
-    - name: example
+    - name: hostname
       type: keyword
       description: >
-        Example field
+        The syslog hostname
+    - name: facility
+      type: keyword
+      description: >
+        The syslog facility
+    - name: priority
+      type: keyword
+      description: >
+        The syslog priority
+    - name: result
+      type: keyword
+      description: >
+        The syslog result
+    - name: user_name
+      type: keyword
+      description: >
+        The user name used when basic authentication is used.
+    - name: remote_ip
+      type: keyword
+      description: >
+        Client IP address.
+    - name: port
+      type: long
+      description: >
+        Access port.
+    - name: geoip
+      type: group
+      description: >
+        Contains GeoIP information gathered based on the remote_ip field.
+        Only present if the GeoIP Elasticsearch plugin is available and
+        used.
+      fields:
+        - name: continent_name
+          type: keyword
+          description: >
+            The name of the continent.
+        - name: country_iso_code
+          type: keyword
+          description: >
+            Country ISO code.
+        - name: location
+          type: geo_point
+          description: >
+            The longitude and latitude.
+        - name: region_name
+          type: keyword
+          description: >
+            The region name.
+        - name: city_name
+          type: keyword
+          description: >
+            The city name.
