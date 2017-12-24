@@ -37,7 +37,7 @@ bsd-auth_filebeat_module
       hosts: ["localhost:9200"]
       index: "bsd-auth-%{+yyyy.MM.dd}"
       template.name: "bsd-auth"
-      template.path: "${path.config}/module/bsd-auth/config/bsd-auth.template.json"
+      template.path: "${path.config}/module/bsd-auth/auth/config/bsd-auth.template.json"
     ```
 
 ## 実行
